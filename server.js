@@ -71,7 +71,7 @@ app.use(express.json());
 //main page
 app.get('/', async(req,res) => {
   let films = await SchemaFilm.find({});
-  
+    console.log(films)
     res.render('home', {films});
 })
 
