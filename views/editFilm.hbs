@@ -1,0 +1,11 @@
+<form method="post" action="/editFilmProcess">
+    <div>
+        <span>Выбрать фильм для редактирования: </span>
+        <select name="film" >
+            {{#each films}}
+            <option value={{_id}}>{{title}}</option>
+            {{/each}}
+        </select>   
+        <button type="submit" name="submit">Найти</button>
+    </div>
+</form>

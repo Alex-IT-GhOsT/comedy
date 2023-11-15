@@ -1,0 +1,168 @@
+.outWrapper{
+    background: black;
+}
+.wrapper{
+    max-width: 1024px;
+    background: #2B2B2BFF;
+    color: #A8A8A8FF;
+    padding: 20px;
+    margin: 0 auto;
+    
+}
+.full-discription{
+    border: 1px solid ;
+    padding: 10px;
+    margin: 10px 0;
+    background: #222222FF;
+}
+
+.main-block__header{
+    display: flex;
+    align-items: center;
+}
+.main-block__nameFilm{
+    flex: 1;
+}
+.main-block{
+    padding: 10px;
+}
+.main-block__link{
+    margin: 10px 0;
+}
+.quality{
+    color: #F8C448FF;
+}
+
+
+
+.main-block__main{
+    display: flex;
+    gap: 20px
+}
+
+.discription{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.button-link{
+    padding: 5px;
+    border: 1px solid black;
+    text-decoration: none;
+    color: #959595FF;
+    background: #242424FF ;
+}
+.button-link:hover{
+    color: rgb(203, 192, 192);
+    background: rgba(36, 36, 36, 0.763) ;
+}
+
+.write-comment{
+    max-width: 100%;
+    width: 100%;
+    max-height: 80px;
+    min-height: 50px;
+}
+
+.field{
+    display: flex;
+    gap: 20px;
+}
+
+.watch-film__margin{
+    margin-bottom: 30px; 
+}
+
+.watch-film{
+    display: inline-block;
+    border: 1px solid;
+    padding: 10px;
+}
+
+.block-area__write-comment{
+    margin-bottom: 30px;
+}
+
+.link{
+    cursor: pointer;
+}
+
+.comment-block{
+    border: 1px solid white;
+}
+
+.comment__open-block{
+    margin-bottom: 20px;
+}
+.user-comment{
+    border: 1px solid white;
+    padding: 10px;
+}
+
+.user-name{
+    color: white;
+}
+
+.unit-raiting{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    align-items: baseline;
+}
+ul{
+    padding: 0;
+    margin: 0;
+}
+li{
+    list-style-type: none;
+}
+
+.rate{
+    text-decoration: none;
+}
+
+.sortFilms{
+    display: flex;
+    gap: 20px;
+}
+
+.allFilms{
+    display: flex;
+    gap: 20px;
+}
+.main-block{
+    border: 1px solid white;
+}
+.main-block .current-ration__rate {
+    pointer-events: none;
+  }
+
+.registr{
+    padding: 10px;
+}
+
+a {
+    color: white;
+}
+
+.edit {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.edit_1{
+    flex: 1;
+}
+.edit_2{
+    flex: 1;
+}
+
+.edit_11{
+    width: 80px;
+}
+
+
+
+.wrapper-footer{
+    background: black;
+}

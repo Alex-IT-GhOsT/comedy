@@ -1,0 +1,66 @@
+    <div class="sortFilms">
+        <div>
+             <span>Сортировать:</span>
+        </div>
+        <div>
+            <form method="post" action="/sortFilm" class="allFilms">
+            <div class="yearsFilm">
+                <select class="select-yearsFilm" name="year">
+                    <option selected>
+                        Год
+                    </option>
+                    <option value="2023" >
+                        2023
+                    </option>
+                    <option value="2022">
+                        2022
+                    </option>
+                    <option value="2021">
+                        2021
+                    </option>
+                    <option value="2020">
+                        2020
+                    </option>
+                    <option value="2019">
+                        2019
+                    </option>
+                </select>
+            </div>
+            <div class="country">
+                <select class="select-country" name="country">
+                    <option selected>
+                        Страна
+                    </option>
+                    <option value="США">
+                        США
+                    </option>
+                    <option value="Канада">
+                        Канада
+                    </option>
+                    <option value="Мексика">
+                        Мексика
+                    </option>
+                    <option value="Индия">
+                        Индия
+                    </option>
+                </select>
+            </div>
+            <div class="rate">
+                <select class="select-rate" name="rate">
+                    <option selected>
+                        Рейтинг
+                    </option>
+                    <option value="1">
+                        по возрастанию
+                    </option>
+                    <option value="-1">
+                        по убыванию
+                    </option>
+                </select>
+            </div>
+            <input type="submit" name="submit" value="Найти">
+    </form>
+        </div>
+        
+    </div>
+    

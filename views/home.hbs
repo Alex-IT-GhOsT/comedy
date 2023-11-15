@@ -1,0 +1,92 @@
+<div class="wrapper">
+    {{>header/sortFilm}}
+    {{#each films}}
+    <div class="main-block">
+        <div class="main-block__header">
+            <div class="main-block__nameFilm">
+                <h2>{{title}}</h2>
+            </div>
+            <div class="main-block__rateFilm">
+                <div> 
+                        <ul class="unit-raiting">
+                            <li class="current-ration">
+                                <a class="rate current-ration__rate" href="#" title="Плохо" data-rating="1" >★</a>
+                            </li>
+                            <li class="current-ration">
+                                <a class="rate current-ration__rate" href="#" title="Приемлемо" data-rating="2">★</a>
+                            </li>
+                            <li class="current-ration">
+                                <a class="rate current-ration__rate" href="#" title="Средне" data-rating="3">★</a>
+                            </li>
+                            <li class="current-ration">
+                                <a class="rate current-ration__rate" href="#" title="Хорошо" data-rating="4">★</a>
+                            </li>
+                            <li class="current-ration">
+                                <a class="rate current-ration__rate" href="#" title="Отлично" data-rating="5">★</a>
+                            </li>
+                            <div class="ratingText"> 
+                                {{#if totalRating}}
+                                    {{averageRating}} / 5 ({{totalVotes}} гол)
+                                {{else}}
+                                    0 / 5 (0гол)
+                                {{/if}}
+                            </div>
+                        </ul> 
+                </div> 
+            </div>
+        </div>
+        <div class="main-block__main">
+            <div class="main-block__image">
+                <a href="#">
+                    <img src={{img}}>
+                </a>
+                
+            </div>
+            <div class="main-block__discription">
+                <div class="discription">
+                    <div class="">
+                        <span>Год выпуска:</span>
+                        <a href="#"> {{ year}}</a>
+                    </div>
+                    <div class="">
+                        <span>Страна:</span>
+                        <a href="#">{{country}}</a>
+                    </div>
+                    <div class="">
+                        <span>Жанр:</span>
+                        <a href="#">{{ genre}}</a>
+                    </div>
+                    <div class="">
+                        <span>Продолжительность:</span>
+                        <span>{{duration}} мин</span>
+                    </div>
+                    <div class="">
+                        <span>Премьера:</span>
+                        <span>{{ premiere}}</span>
+                    </div>
+                    <div class=''>
+                        <span>Качество:</span>
+                        <span>web-dl {{ quality}}</span>
+                    </div>
+                    <div class="">
+                        <span>
+                           {{short_description}}
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="main-block__footer">
+            <div class="main-block__link">
+                <a href="/pageWatch/{{_id}}" class="button-link">
+                    Смотреть онлайн
+                </a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
+</div>
+

@@ -1,0 +1,127 @@
+<div class="wrapper">
+    {{#each film}}
+    <div class="page-block">
+        <a href="/">Главная страница</a>
+        <div class="main-block__header">
+            <div class="main-block__nameFilm">
+                <h2>{{title}}</h2>
+            </div>
+            <div class="main-block__rateFilm">
+                <div>
+                    <form method="post" action="/addRate/{{_id}}" id="ratingForm"> 
+                        <ul class="unit-raiting">
+                            <li class="current-ration">
+                                <a class="rate current-ration__rate" href="#" title="Плохо" data-rating="1" >★</a>
+                            </li>
+                            <li class="current-ration">
+                                <a class="rate current-ration__rate" href="#" title="Приемлемо" data-rating="2">★</a>
+                            </li>
+                            <li class="current-ration">
+                                <a class="rate current-ration__rate" href="#" title="Средне" data-rating="3">★</a>
+                            </li>
+                            <li class="current-ration">
+                                <a class="rate current-ration__rate" href="#" title="Хорошо" data-rating="4">★</a>
+                            </li>
+                            <li class="current-ration">
+                                <a class="rate current-ration__rate" href="#" title="Отлично" data-rating="5">★</a>
+                            </li>
+                            <div class="ratingText"> 
+                                {{#if totalRating}}
+                                    {{averageRating }} / 5 ({{totalVotes}} гол)
+                                {{else}}
+                                    0 / 5 (0гол)
+                                {{/if}}
+                            </div>
+                        </ul> 
+                     </form>
+                </div> 
+            </div>
+        </div>
+        <div class="main-block__main">
+            <div class="main-block__image">
+                <a href="#">
+                    <img src={{img}}>
+                </a> 
+            </div>
+            <div class="main-block__discription">
+                <div class="discription">
+                    <div class="">
+                        <span>Год выпуска:</span>
+                        <a href="#"> {{year}}</a>
+                    </div>
+                    <div class="">
+                        <span>Страна:</span>
+                        <a href="#">{{country}}</a>
+                    </div>
+                    <div class="">
+                        <span>Жанр:</span>
+                        <a href="#">{{genre}}</a>
+                    </div>
+                    <div class="">
+                        <span>Продолжительность:</span>
+                        <span>{{duration}} мин</span>
+                    </div>
+                    <div class="">
+                        <span>Премьера:</span>
+                        <span>{{premiere}}</span>
+                    </div>
+                    <div class=''>
+                        <span class="quality">Качество:</span>
+                        <span>web-dl {{quality}}</span>
+                    </div>
+                    <div class="">
+                        <span>Режиссер:</span>
+                        <span><a href="#">{{director}}</a></span>
+                    </div>
+                    <div class="">
+                        <span>Актеры:</span>
+                        <a href="#">{{actors}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="full-discription">
+        <span>
+           {{ full_description}}
+        </span>
+    </div>
+    <div class="watch-film watch-film__margin">
+        <a class="link watch-film__link" href={{url}}>Начать просмотр</a>
+    </div>
+    {{/each}}
+    <div class="comment">
+        <div class="open-block comment__open-block">
+            <form method="post" action="/addComment" class="send-comment">
+                <input type="hidden" name="film_id" value="{{idFilm}}">
+                <div class="block-area">
+                    <textarea class="write-comment block-area__write-comment" name="textaria"></textarea>
+                </div>
+                <div class="field">
+                    <div class="write-name field__write-name" >
+                        <input type="text" name="name" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="btn-send field__btn-send">
+                        <input type="submit" name="submit" value="Добавить комментарий">
+                    </div>
+                </div>  
+            </form>
+        </div>
+        <div class="comment-block">
+            {{#if oldComment}}
+                {{#each comment}}
+                    <div class="user-comment comment-block__user-comment">
+                        <p><span class="user-name">{{user_id}}</span> {{getTime created_at}} </p>
+                        <p>{{text}} </p>
+                    </div>
+                    {{#if isComment}}
+                    <div class="user-comment comment-block__user-comment">
+                        <p><span class="user-name">{{user_id}}</span> {{getTime created_at}}</p>
+                        <p>{{text}}</p>
+                    </div>
+                    {{/if}}
+                {{/each}}
+            {{/if}}
+        </div>
+    </div>
+</div>
