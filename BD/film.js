@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const film = new mongoose.Schema({
     title: String,
     rate: Number,
@@ -19,7 +18,5 @@ const film = new mongoose.Schema({
     totalRating: {type: Number, default: 0 },
     averageRating: {type: Number, default: 0 },
 })
-
 const SchemaFilm = mongoose.model('films',film)
-
 export default SchemaFilm;

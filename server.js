@@ -15,7 +15,6 @@ const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const handlebars = expressHandlebars.create({
 	defaultLayout: 'main', 
 	extname: 'hbs',
@@ -48,7 +47,6 @@ const handlebars = expressHandlebars.create({
 app.engine('hbs', handlebars.engine);
 app.set('view engine', 'hbs');
 
-// Подключение к MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/siteComedy', {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -68,16 +66,13 @@ app.use(session({
 }))
 app.use(express.json());
 
-//main page
 app.get('/', async(req,res) => {
   let films = await SchemaFilm.find({});
     console.log(films)
     res.render('home', {films});
 })
 
-// watch page
 app.get('/pageWatch/:id', async (req,res) => {
-
   const idFilm = req.params.id;
   let film = await SchemaFilm.find({_id: idFilm });
   const isComment = req.query.isComment === 'true';
@@ -95,26 +90,21 @@ app.get('/pageWatch/:id', async (req,res) => {
 })
 
 app.post('/addComment', async(req,res) => {
-  
   const commentText = req.body.textaria;
   const authorName = req.body.name;
   const film_id = req.body.film_id;
-
-// добавляем в шаблон инфор для БД
   const commentNew = new Comment({
     film_id: film_id,
     user_id: authorName,
     text: commentText,
     created_at: Date.now(),
   })
-// сохранияем в сессии между переходами
   req.session.comment = {
     textaria: commentText,
     name: authorName,
     film_id: film_id,
     created_at: Date.now()
   }
-//сохраненяем в БД
   commentNew.save().then(save => {
     console.log('save', save)
     res.redirect(`pageWatch/${film_id}?isComment=true`);
@@ -126,65 +116,50 @@ app.post('/addComment', async(req,res) => {
 app.post('/addRate/:id', async(req,res) => {
   const {rating} = req.body;
   const film_id = req.params.id;
-
   const rateNew = new Rates({
     film_id: film_id,
     rate: rating,
   })
-
   rateNew.save().then(save => {
     console.log('save',save);
   }).catch(err => {
     console.error('err',err);
   })
-
   const rate = await SchemaFilm.find({_id: film_id}, {totalRating:1});
   const vote = await SchemaFilm.find({_id: film_id}, {totalVotes:1});
-  
-  const ress = rate.map((item) => item.totalRating).join(); // получаем значемние рэйтинга
-  const ress1 = vote.map((item) => item.totalVotes).join(); // получаем значемние голосов
-
+  const ress = rate.map((item) => item.totalRating).join(); 
+  const ress1 = vote.map((item) => item.totalVotes).join(); 
   const avg = (+ress / +ress1).toFixed(2);
-
   await SchemaFilm.updateOne({_id:film_id}, {$inc:{totalVotes:1, totalRating: rating}});
   await SchemaFilm.updateOne({_id:film_id}, {$set:{averageRating: avg}});
-
 })
 
 app.post('/sortFilm/', async (req,res) => {
   const year = req.body.year !== "Год" ? parseInt(req.body.year) : null;
   const country = req.body.country !== "Страна" ? req.body.country : null;
   const rate = req.body.rate !== "Рейтинг" ? parseInt(req.body.rate) : null;
-
   const filter = {};
- 
   if (year) {
     filter.year = year;
   }
-
   if (country) {
     filter.country = country;
   }
- 
   try{
     const result = await SchemaFilm.find(filter).sort({averageRating: rate});
-   
     res.render('home',{
       films: result
     })
-    
   } catch (err) {
     console.error(err);
     res.status(500).send('Произошла ошибка при поиске фильмов.');
   }
-  
 })
-// вход для редактирования
+
 app.get('/enter/',(req,res) => {
   res.render('enter');
 })
 
-// проверка админа
 app.post('/enter/',async (req,res) => {
   console.log('ты тут')
   const nameAdmin = req.body.name;
@@ -207,21 +182,19 @@ app.post('/enter/',async (req,res) => {
  admin.forEach((item) => {
   if (item.login == nameAdmin && item.password == passAdmin ) {
     isAdmin = true;
-  }
+    }
  })
  if (isAdmin) {
-  res.redirect('/Films/'); // если админ переход на страницу редактирования
+  res.redirect('/Films/');
 } else {
   res.send('неправильное имя или пароль');
-}
+  }
 })
-// выбрать что делать с фильмом----------------
 app.get('/Films/',async(req,res) => {
 
   const edit = req.query.edit;
   const del = req.query.del;
   const add = req.query.add;
-
   if (edit) {
     res.redirect('/editFilm');
   } else if (del) {
@@ -233,8 +206,6 @@ app.get('/Films/',async(req,res) => {
   }
 })
 
-//--------------------------
-//edit film-----------------------------------
 app.get('/editFilm/', async(req,res) => {
   const films = await SchemaFilm.find({});
   res.render('editFilm',{films}); // показ списка фильмов
@@ -247,10 +218,8 @@ app.post('/editFilmProcess/', async(req,res) => {
 })
 
 app.post('/editFilmSuccess',async(req,res) => {
-
   const idFilm = req.body.id;
   const filter = {_id: idFilm};
-  
   const update = {
     $set: {
         title: req.body.title,
@@ -280,31 +249,21 @@ app.post('/editFilmSuccess',async(req,res) => {
   res.render('editFilmSucces');
 })
 
-//--------------------------------------
-
-//delete film ------------------------- 
-
 app.get('/delFilm/', async(req,res) => {
   const films = await SchemaFilm.find({});
-  res.render('delFilm',{films}); // показ списка фильмов
+  res.render('delFilm',{films});
 })
 
 app.post('/delFilmSucces',async(req,res) => {
   const idFilm = req.body.film;
-
   await SchemaFilm.deleteOne({_id: idFilm}).then(del => {
     console.log(del, 'success')
   }).catch(err => {
     console.error(err, 'not success')
   })
-
   res.render('delFilmSucces');
-
 })
-//--------------------------------
 
-
-//addFilm------------------------------
 app.get('/addFilm/', async(req,res) => {
   res.render('addFilm');
 })
@@ -337,7 +296,6 @@ app.post('/addFilmSuccess', async(req,res) => {
   res.render('addFilmSuccess');
 })
 
-// Запуск сервера
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
